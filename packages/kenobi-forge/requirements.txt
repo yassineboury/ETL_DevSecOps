@@ -1,0 +1,35 @@
+# Kenobi-Forge - Dépendances spécifiques
+
+# Génération de templates
+jinja2>=3.1.0
+cookiecutter>=2.5.0     # Génération de projets
+
+# Interface CLI
+click>=8.1.0
+rich>=13.0.0            # Interface CLI riche
+typer>=0.9.0            # CLI moderne (alternative à click)
+
+# Configuration et parsing
+pyyaml>=6.0
+toml>=0.10.0
+configparser>=6.0.0
+
+# Analyse de code
+ast-tools>=0.1.0
+libcst>=1.1.0           # Concrete Syntax Tree
+
+# Template et génération
+black>=23.12.1          # Formatage automatique du code généré
+isort>=5.13.2           # Organisation des imports
+
+# Validation
+pydantic>=2.5.0
+jsonschema>=4.20.0
+
+# Utilitaires
+pathlib2>=2.3.0        # Manipulation de chemins (Python < 3.4)
+inflection>=0.5.0       # Transformation de noms (camelCase, etc.)
+
+# Git et versioning
+gitpython>=3.1.0        # Manipulation Git
+semver>=3.0.0           # Gestion versions sémantiques

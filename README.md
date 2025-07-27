@@ -2,30 +2,82 @@
 
 ## Description
 
-Projet ETL (Extract, Transform, Load) avec approche DevSecOps incluant Kenobi-Forge pour l'automatisation et la gestion des pipelines de données.
+Monorepo ETL (Extract, Transform, Load) avec approche DevSecOps incluant Kenobi-Forge pour l'automatisation et la gestion des pipelines de données.
 
-## Structure du projet
+## Architecture Monorepo
+
+Ce projet utilise une architecture **monorepo** pour une gestion unifiée des composants ETL et Kenobi-Forge.
 
 ```
 ETL_DevSecOps/
-├── Kenobi-Forge/          # Module Kenobi-Forge
-│   ├── docs/              # Documentation
-│   │   ├── getting-started.md
-│   │   ├── specs/         # Spécifications
-│   │   └── user_stories/  # User stories
-│   └── olds/              # Anciennes versions
-└── ETL_DevSecOps/         # Module ETL principal
+├── 📁 packages/                    # Modules principaux
+│   ├── 🔧 etl-core/               # Module ETL principal
+│   ├── ⚡ kenobi-forge/           # Générateur de code et templates
+│   └── 🔗 shared/                 # Utilitaires partagés
+├── 📚 docs/                       # Documentation globale
+├── ⚙️ scripts/                    # Scripts d'automatisation
+├── 🔧 config/                     # Configuration globale
+├── 🐳 .github/                    # CI/CD et workflows
+└── 📄 Makefile                    # Commandes de gestion
 ```
 
-## Démarrage rapide
+## 🚀 Démarrage rapide
 
-1. Cloner le repository
-2. Suivre les instructions dans `Kenobi-Forge/docs/getting-started.md`
+### Installation complète
+```bash
+# Configuration automatique de l'environnement
+make setup
 
-## Contribution
+# Ou voir toutes les commandes disponibles
+make help
+```
 
-Consultez les spécifications dans `Kenobi-Forge/docs/specs/` avant de contribuer.
+### Commandes principales
+```bash
+make setup          # Installation complète
+make test           # Tests tous modules
+make lint           # Vérification qualité code
+make build          # Build tous les modules
+make clean          # Nettoyage
+```
 
-## License
+### Développement par module
+```bash
+make dev-etl        # Mode dev ETL Core
+make dev-kenobi     # Mode dev Kenobi-Forge
+make status         # Statut du monorepo
+```
+
+## 📖 Documentation
+
+- [**Architecture**](docs/ARCHITECTURE.md) - Architecture détaillée du monorepo
+- [**ETL Core**](packages/etl-core/README.md) - Module de traitement des données
+- [**Kenobi-Forge**](packages/kenobi-forge/README.md) - Générateur de code
+- [**Shared**](packages/shared/README.md) - Utilitaires communs
+
+## 🛠️ Technologies
+
+- **ETL Core** : Python, Pandas, SQLAlchemy, Apache Airflow
+- **Kenobi-Forge** : Jinja2, Click, YAML, Templates
+- **DevSecOps** : GitHub Actions, SonarQube, Docker
+- **Qualité** : Black, Flake8, Pytest, MyPy
+
+## 🔄 Workflow de développement
+
+1. **Feature branch** depuis `develop`
+2. **Développement** dans le module concerné
+3. **Tests** : `make test`
+4. **Quality check** : `make lint`
+5. **PR** vers `develop`
+6. **Merge** vers `main` pour release
+
+## 🤝 Contribution
+
+1. Consultez [ARCHITECTURE.md](docs/ARCHITECTURE.md) pour comprendre la structure
+2. Utilisez `make setup` pour configurer votre environnement
+3. Suivez les conventions de code (formatage automatique avec `make format`)
+4. Ajoutez des tests pour toute nouvelle fonctionnalité
+
+## 📜 License
 
 À définir

@@ -1,0 +1,29 @@
+# Shared - Dépendances communes
+
+# Configuration et validation
+pydantic>=2.5.0
+python-dotenv>=1.0.0
+
+# Logging et monitoring
+loguru>=0.7.0
+structlog>=23.2.0       # Logging structuré
+
+# Utilitaires
+python-dateutil>=2.8.0
+pendulum>=3.0.0         # Manipulation dates/temps
+uuid7>=0.1.0            # UUID v7 pour tri temporel
+
+# Sérialisation
+orjson>=3.9.0           # JSON rapide
+msgpack>=1.0.0          # Sérialisation binaire
+
+# Validation et types
+typing-extensions>=4.8.0
+pydantic-settings>=2.1.0
+
+# Cryptographie et sécurité
+cryptography>=41.0.0
+passlib>=1.7.0
+
+# Cache et storage
+diskcache>=5.6.0        # Cache disque
