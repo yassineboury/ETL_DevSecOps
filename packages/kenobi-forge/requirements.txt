@@ -1,5 +1,8 @@
 # Kenobi-Forge - Dépendances spécifiques
 
+# Configuration et parsing
+PyYAML>=6.0.0
+
 # Génération de templates
 jinja2>=3.1.0
 cookiecutter>=2.5.0     # Génération de projets

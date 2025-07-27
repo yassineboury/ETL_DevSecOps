@@ -7,6 +7,10 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
+structlog = "^23.2.0"
+pandas = "^2.2.0"
+requests = "^2.31.0"
+openpyxl = "^3.1.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.4"

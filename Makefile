@@ -4,7 +4,7 @@
 # Configuration
 PYTHON := python3
 PIP := pip3
-VENV_DIR := venv
+VENV_DIR := etl_devsecops
 ETL_DIR := packages/etl-core
 KENOBI_DIR := packages/kenobi-forge
 SHARED_DIR := packages/shared
@@ -134,10 +134,15 @@ forge-kenobi-report: ## Génère rapport de conformité complet
 	@echo "$(YELLOW)📊 Génération rapport Forge-Kenobi...$(RESET)"
 	@if [ -f "packages/kenobi-forge/src/forge_kenobi_engine.py" ]; then \
 		. $(VENV_DIR)/bin/activate && \
-		$(PYTHON) packages/kenobi-forge/src/forge_kenobi_engine.py --project-root .; \
+		$(PYTHON) packages/kenobi-forge/src/forge_kenobi_engine.py --check-only; \
 	else \
 		echo "$(RED)❌ Moteur Forge-Kenobi non trouvé$(RESET)"; \
 	fi
+
+test-kenobi-engine: ## Test du moteur Forge-Kenobi
+	@echo "$(YELLOW)⚙️ Test moteur Forge-Kenobi...$(RESET)"
+	@. $(VENV_DIR)/bin/activate && \
+		$(PYTHON) packages/kenobi-forge/src/forge_kenobi_engine.py --check-only
 
 dev-etl: ## Mode développement ETL Core
 	@echo "$(YELLOW)🔧 Mode développement ETL Core...$(RESET)"
