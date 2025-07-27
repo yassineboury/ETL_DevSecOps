@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "etl-core"
+version = "0.1.0"
+description = "ETL Core - DevSecOps metrics centralization"
+authors = ["ETL DevSecOps Team"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.4"
+pytest-cov = "^4.1.0"
+black = "^23.12.1"
+mypy = "^1.8.0"
+bandit = "^1.7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,40 +1,31 @@
-# ETL Core Module
+# ETL Core
 
-Module principal pour les opérations ETL (Extract, Transform, Load).
+ETL Core module conforme aux spécifications FORGE-KENOBI.md
 
 ## Structure
 
+Respecte l'architecture Clean Architecture + DDD selon FORGE-KENOBI.md :
+
 ```
-etl-core/
-├── src/
-│   └── etl_core/
-│       ├── __init__.py
-│       ├── extractors/     # Extracteurs de données
-│       ├── transformers/   # Transformateurs
-│       ├── loaders/        # Chargeurs de données
-│       └── pipelines/      # Pipelines ETL
-├── tests/
-├── docs/
-├── requirements.txt
-└── setup.py
+etl/
+├── core/             # Domain Layer (config, logging, errors, models)
+├── extractors/       # Infrastructure Layer (GitLab, SonarQube, Dependency-Track, DefectDojo)
+├── transformers/     # Application Layer (dates, agrégation, colonnes)
+├── loaders/          # Infrastructure Layer (Excel Phase 1)
+└── cli.py            # Interface Layer - Entry point
 ```
 
-## Installation en mode développement
+## Spécifications conformes
+
+- **SPC-GEN-01**: Nommage snake_case
+- **SPC-GEN-02**: Dates ISO/Epoch → JJ-MM-YYYY  
+- **SPC-GEN-03**: Agrégation hebdomadaire ISO
+- **SPC-GEN-04**: Seuils CI ≥90%
+- **SPC-GEN-05**: Retry HTTP 1-4-9s
+
+## Installation
 
 ```bash
-# Depuis la racine du monorepo
+# Mode développement depuis racine monorepo
 make dev-etl
-
-# Ou manuellement
-cd packages/etl-core
-pip install -e .
-```
-
-## Utilisation
-
-```python
-from etl_core.pipelines import DataPipeline
-
-pipeline = DataPipeline()
-pipeline.extract("source").transform("rules").load("destination")
 ```

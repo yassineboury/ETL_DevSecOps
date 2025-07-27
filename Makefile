@@ -17,11 +17,13 @@ BLUE := \033[34m
 RESET := \033[0m
 
 help: ## Affiche cette aide
-	@echo "$(BLUE)ETL DevSecOps Monorepo - Commandes disponibles:$(RESET)"
+	@echo "$(BLUE)🤖 ETL DevSecOps Monorepo - Forge-Kenobi Compliant$(RESET)"
+	@echo "$(YELLOW)Framework: SPARCTER v1.4.0 | Codename: Kenobi-Forge$(RESET)"
+	@echo ""
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  $(GREEN)%-20s$(RESET) %s\n", $$1, $$2}'
 
 setup: ## Installation complète de l'environnement
-	@echo "$(YELLOW)🚀 Configuration de l'environnement ETL DevSecOps...$(RESET)"
+	@echo "$(YELLOW)🤖 Forge-Kenobi: Configuration environnement ETL DevSecOps...$(RESET)"
 	@if [ ! -d "$(VENV_DIR)" ]; then \
 		echo "$(BLUE)Création de l'environnement virtuel...$(RESET)"; \
 		$(PYTHON) -m venv $(VENV_DIR); \
@@ -31,7 +33,8 @@ setup: ## Installation complète de l'environnement
 		$(PIP) install --upgrade pip && \
 		$(PIP) install -r requirements.txt || echo "requirements.txt non trouvé, création..."
 	@$(MAKE) install-deps
-	@echo "$(GREEN)✅ Configuration terminée!$(RESET)"
+	@$(MAKE) forge-kenobi-check
+	@echo "$(GREEN)✅ Configuration Forge-Kenobi complète!$(RESET)"
 
 install-deps: ## Installation des dépendances de tous les modules
 	@echo "$(YELLOW)📦 Installation des dépendances...$(RESET)"
@@ -107,13 +110,34 @@ clean: ## Nettoie les fichiers temporaires
 	@echo "$(GREEN)✅ Nettoyage terminé!$(RESET)"
 
 status: ## Affiche le statut du monorepo
-	@echo "$(BLUE)📊 Statut ETL DevSecOps Monorepo:$(RESET)"
+	@echo "$(BLUE)📊 Statut ETL DevSecOps Monorepo (Forge-Kenobi):$(RESET)"
 	@echo "$(YELLOW)Modules disponibles:$(RESET)"
 	@if [ -d "$(ETL_DIR)" ]; then echo "  $(GREEN)✅ ETL Core$(RESET)"; else echo "  $(RED)❌ ETL Core$(RESET)"; fi
 	@if [ -d "$(KENOBI_DIR)" ]; then echo "  $(GREEN)✅ Kenobi-Forge$(RESET)"; else echo "  $(RED)❌ Kenobi-Forge$(RESET)"; fi
 	@if [ -d "$(SHARED_DIR)" ]; then echo "  $(GREEN)✅ Shared$(RESET)"; else echo "  $(RED)❌ Shared$(RESET)"; fi
 	@echo "$(YELLOW)Environnement:$(RESET)"
 	@if [ -d "$(VENV_DIR)" ]; then echo "  $(GREEN)✅ Virtual Environment$(RESET)"; else echo "  $(RED)❌ Virtual Environment$(RESET)"; fi
+	@echo "$(YELLOW)Conformité Forge-Kenobi:$(RESET)"
+	@if [ -f "packages/kenobi-forge/FORGE-KENOBI.md" ]; then echo "  $(GREEN)✅ Spécifications chargées$(RESET)"; else echo "  $(RED)❌ FORGE-KENOBI.md manquant$(RESET)"; fi
+
+forge-kenobi-check: ## Vérification conformité Forge-Kenobi
+	@echo "$(YELLOW)🤖 Vérification conformité Forge-Kenobi...$(RESET)"
+	@if [ -f "packages/kenobi-forge/src/forge_kenobi_assistant.py" ]; then \
+		. $(VENV_DIR)/bin/activate && \
+		cd packages/kenobi-forge/src && \
+		$(PYTHON) forge_kenobi_assistant.py; \
+	else \
+		echo "$(RED)❌ Assistant Forge-Kenobi non trouvé$(RESET)"; \
+	fi
+
+forge-kenobi-report: ## Génère rapport de conformité complet
+	@echo "$(YELLOW)📊 Génération rapport Forge-Kenobi...$(RESET)"
+	@if [ -f "packages/kenobi-forge/src/forge_kenobi_engine.py" ]; then \
+		. $(VENV_DIR)/bin/activate && \
+		$(PYTHON) packages/kenobi-forge/src/forge_kenobi_engine.py --project-root .; \
+	else \
+		echo "$(RED)❌ Moteur Forge-Kenobi non trouvé$(RESET)"; \
+	fi
 
 dev-etl: ## Mode développement ETL Core
 	@echo "$(YELLOW)🔧 Mode développement ETL Core...$(RESET)"

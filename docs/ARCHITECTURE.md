@@ -29,21 +29,34 @@ ETL_DevSecOps/
 │   └── docker-compose.yml           # Orchestration locale
 ├── packages/                         # Modules principaux
 │   ├── etl-core/                    # Module ETL principal
-│   │   ├── src/                     # Code source ETL
-│   │   ├── tests/                   # Tests ETL
-│   │   ├── docs/                    # Doc spécifique ETL
-│   │   ├── requirements.txt         # Dépendances Python
-│   │   └── setup.py                 # Package Python
-│   ├── kenobi-forge/               # Module Kenobi-Forge
-│   │   ├── src/                    # Code source Kenobi
-│   │   ├── templates/              # Templates de code
-│   │   ├── docs/                   # Documentation Kenobi
-│   │   ├── specs/                  # Spécifications
-│   │   └── user_stories/           # User stories
-│   └── shared/                     # Utilitaires partagés
-│       ├── utils/                  # Fonctions utilitaires
-│       ├── models/                 # Modèles de données communs
-│       └── config/                 # Configuration partagée
+│   │   ├── etl/                     # Code source ETL (structure FORGE-KENOBI.md)
+│   │   │   ├── core/               # Domain Layer (config, logging, errors, models)
+│   │   │   ├── extractors/         # Infrastructure Layer (gitlab, sonar, dtrack, dojo)
+│   │   │   ├── transformers/       # Application Layer (dates, agrégation, colonnes)
+│   │   │   ├── loaders/           # Infrastructure Layer (excel_loader)
+│   │   │   └── cli.py             # Interface Layer - Entry point
+│   │   ├── tests/                  # Tests ETL
+│   │   │   ├── unit/              # Tests unitaires (< 1s, pas I/O)
+│   │   │   ├── integration/       # Tests d'intégration (mocks HTTP)
+│   │   │   └── e2e/               # Tests end-to-end (nightly)
+│   │   ├── pyproject.toml         # Configuration Poetry ≥1.8
+│   │   └── README.md              # Documentation module
+│   ├── kenobi-forge/              # Module Kenobi-Forge
+│   │   ├── src/                   # Code source Kenobi
+│   │   ├── docs/                  # Documentation Kenobi
+│   │   │   ├── specs/             # Spécifications (SPC-GEN-XX)
+│   │   │   └── user_stories/      # User stories
+│   │   ├── olds/                  # Anciennes versions
+│   │   ├── requirements.txt       # Dépendances Kenobi-Forge
+│   │   └── FORGE-KENOBI.md       # Spécifications principales
+│   └── shared/                    # Utilitaires partagés
+│       ├── src/shared/            # Code source partagé
+│       │   ├── models/            # Modèles de données communs
+│       │   ├── utils/             # Fonctions utilitaires
+│       │   ├── config/            # Configuration partagée
+│       │   └── exceptions/        # Exceptions personnalisées
+│       ├── requirements.txt       # Dépendances Shared
+│       └── README.md              # Documentation module
 ├── tools/                          # Outils de développement
 │   ├── linting/                   # Configuration linting
 │   ├── testing/                   # Outils de test
