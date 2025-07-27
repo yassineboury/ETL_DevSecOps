@@ -293,7 +293,7 @@ def main():
 
     # Détection automatique de la racine du monorepo
     current_path = Path.cwd()
-    
+
     # Si on est dans packages/kenobi-forge/src, remonter à la racine
     if current_path.name == "src" and current_path.parent.name == "kenobi-forge":
         project_root = current_path.parent.parent.parent
