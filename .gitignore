@@ -103,3 +103,11 @@ config/settings.toml
 config/settings.local.toml
 config/.env
 config/.env.local
+
+# Temporary development files
+ci-cd-simple.yml
+ci-cd-unified.yml
+check_quality_fixed.sh
+gitlab_extractor.py
+test_gitlab_integration.py
+test_gitlab_extractor.py
