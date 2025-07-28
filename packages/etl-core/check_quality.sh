@@ -5,6 +5,9 @@
 
 set -e
 
+# Configuration environnement Python
+PYTHON_ENV="/Volumes/DATA/STRATIS_CREATIS/PROJETS DEV/ETL DevSecOps/etl_devsecops/bin/python"
+
 echo "🔍 === CHECK QUALITÉ ETL DEVSECOPS KENOBI ==="
 echo "Version: SPARCTER v1.4.0"
 echo "Date: $(date)"
@@ -14,7 +17,7 @@ echo ""
 
 # 1. Formatage avec Black
 echo "📝 [1/6] Vérification formatage Black..."
-if black --check --diff . > /dev/null 2>&1; then
+if "$PYTHON_ENV" -m black --check --diff . > /dev/null 2>&1; then
     echo "✅ Black: Formatage conforme"
 else
     echo "❌ Black: Formatage requis"
@@ -23,7 +26,7 @@ fi
 
 # 2. Style avec Flake8
 echo "🎨 [2/6] Vérification style Flake8..."
-if flake8 --max-line-length=88 --extend-ignore=E203,W503 . > /dev/null 2>&1; then
+if "$PYTHON_ENV" -m flake8 --max-line-length=88 --extend-ignore=E203,W503 . > /dev/null 2>&1; then
     echo "✅ Flake8: Style conforme"
 else
     echo "❌ Flake8: Problèmes de style détectés"
@@ -32,7 +35,7 @@ fi
 
 # 3. Ordre des imports avec isort
 echo "📦 [3/6] Vérification imports isort..."
-if isort --check-only --profile black . > /dev/null 2>&1; then
+if "$PYTHON_ENV" -m isort --check-only --profile black . > /dev/null 2>&1; then
     echo "✅ isort: Imports triés correctement"
 else
     echo "❌ isort: Imports nécessitent un tri"
@@ -41,7 +44,7 @@ fi
 
 # 4. Types avec MyPy
 echo "🔬 [4/6] Vérification types MyPy..."
-if mypy etl/ > /dev/null 2>&1; then
+if "$PYTHON_ENV" -m mypy etl/ > /dev/null 2>&1; then
     echo "✅ MyPy: Types conformes"
 else
     echo "❌ MyPy: Erreurs de types détectées"
@@ -50,8 +53,7 @@ fi
 
 # 5. Tests avec pytest
 echo "🧪 [5/6] Exécution tests pytest..."
-if pytest tests/ -q > /dev/null 2>&1; then
-    test_count=$(pytest tests/ --collect-only -q 2>/dev/null | grep -c "test session starts" || echo "8")
+if "$PYTHON_ENV" -m pytest tests/ -q > /dev/null 2>&1; then
     echo "✅ pytest: 8 tests réussis"
 else
     echo "❌ pytest: Tests échoués"
@@ -60,7 +62,7 @@ fi
 
 # 6. CLI fonctionnelle
 echo "⚙️  [6/6] Vérification CLI..."
-if python -m etl.cli test-gitlab --help > /dev/null 2>&1; then
+if "$PYTHON_ENV" -m etl.cli test-gitlab --help > /dev/null 2>&1; then
     echo "✅ CLI: Interface fonctionnelle"
 else
     echo "❌ CLI: Problème d'interface"
