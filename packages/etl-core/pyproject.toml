@@ -11,13 +11,20 @@ structlog = "^23.2.0"
 pandas = "^2.2.0"
 requests = "^2.31.0"
 openpyxl = "^3.1.0"
+typer = "^0.9.0"
+rich = "^13.7.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.4"
 pytest-cov = "^4.1.0"
+pytest-mock = "^3.12.0"
+responses = "^0.24.0"
 black = "^23.12.1"
 mypy = "^1.8.0"
 bandit = "^1.7.0"
+
+[tool.poetry.scripts]
+etl-cli = "etl.cli:main"
 
 [build-system]
 requires = ["poetry-core"]
