@@ -9,7 +9,7 @@ import re
 from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 
 class ComplianceStatus(Enum):
@@ -38,7 +38,7 @@ class ComplianceResult:
     rule_id: str
     status: ComplianceStatus
     message: str
-    details: Optional[Dict] = None
+    details: dict | None = None
 
 
 class ForgeKenobiEngine:
@@ -54,7 +54,7 @@ class ForgeKenobiEngine:
         self.kenobi_config = self._load_kenobi_config()
         self.rules = self._load_compliance_rules()
 
-    def _load_kenobi_config(self) -> Dict:
+    def _load_kenobi_config(self) -> dict:
         """Charge la configuration depuis FORGE-KENOBI.md"""
         kenobi_file = (
             self.project_root / "packages" / "kenobi-forge" / "FORGE-KENOBI.md"
@@ -63,7 +63,7 @@ class ForgeKenobiEngine:
         if not kenobi_file.exists():
             raise FileNotFoundError(f"FORGE-KENOBI.md not found at {kenobi_file}")
 
-        with open(kenobi_file, "r", encoding="utf-8") as f:
+        with open(kenobi_file, encoding="utf-8") as f:
             content = f.read()
 
         # Extract framework tag
@@ -82,7 +82,7 @@ class ForgeKenobiEngine:
 
         return {}
 
-    def _load_compliance_rules(self) -> List[ComplianceRule]:
+    def _load_compliance_rules(self) -> list[ComplianceRule]:
         """Charge les règles de conformité depuis les spécifications"""
         rules = []
 
@@ -149,7 +149,7 @@ class ForgeKenobiEngine:
             message=f"Nommage conforme pour {file_path.name}",
         )
 
-    def check_project_structure(self) -> List[ComplianceResult]:
+    def check_project_structure(self) -> list[ComplianceResult]:
         """Vérifie la structure du projet selon l'architecture Forge-Kenobi"""
         results = []
 
@@ -185,12 +185,12 @@ class ForgeKenobiEngine:
 
         return results
 
-    def check_coding_conventions(self, file_path: Path) -> List[ComplianceResult]:
+    def check_coding_conventions(self, file_path: Path) -> list[ComplianceResult]:
         """Vérifie les conventions de codage"""
         results = []
 
         if file_path.suffix == ".py" and file_path.exists():
-            with open(file_path, "r", encoding="utf-8") as f:
+            with open(file_path, encoding="utf-8") as f:
                 content = f.read()
 
             # Vérifier présence docstrings pour classes/fonctions
@@ -221,7 +221,7 @@ class ForgeKenobiEngine:
 
         return results
 
-    def run_full_compliance_check(self) -> Dict[str, Any]:
+    def run_full_compliance_check(self) -> dict[str, Any]:
         """Exécute une vérification complète de conformité"""
         all_results = []
 
@@ -263,7 +263,7 @@ class ForgeKenobiEngine:
 
         return compliance_report
 
-    def generate_compliance_report(self, output_file: Optional[Path] = None) -> Path:
+    def generate_compliance_report(self, output_file: Path | None = None) -> Path:
         """Génère un rapport de conformité complet"""
         report = self.run_full_compliance_check()
 

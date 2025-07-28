@@ -5,7 +5,6 @@ Interface CLI pour les outils ETL DevSecOps ONCF.
 
 import logging
 import sys
-from typing import Optional
 
 import typer
 from rich.console import Console
@@ -29,10 +28,10 @@ console = Console()
 
 @app.command("test-gitlab")
 def test_gitlab_command(
-    gitlab_url: Optional[str] = typer.Option(
+    gitlab_url: str | None = typer.Option(
         None, "--url", help="URL GitLab ONCF (défaut: variable GITLAB_URL)"
     ),
-    gitlab_token: Optional[str] = typer.Option(
+    gitlab_token: str | None = typer.Option(
         None, "--token", help="Token GitLab (défaut: variable GITLAB_TOKEN)"
     ),
     verbose: bool = typer.Option(

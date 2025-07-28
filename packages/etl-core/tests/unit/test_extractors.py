@@ -6,7 +6,6 @@ from unittest.mock import Mock, patch
 
 import pytest
 import requests
-
 from etl.extractors.gitlab.test_gitlab_connection import (
     GitLabConnectionError,
     GitLabExtractor,

@@ -16,10 +16,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from kenobi_integration import (
+    get_kenobi_integration,
     kenobi_check,
     kenobi_execute,
     kenobi_guidance,
-    get_kenobi_integration,
 )
 
 

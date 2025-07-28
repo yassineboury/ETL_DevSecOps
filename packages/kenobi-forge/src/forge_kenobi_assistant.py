@@ -9,7 +9,7 @@ import re
 from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 
 class ActionType(Enum):
@@ -28,10 +28,10 @@ class ForgeKenobiContext:
     version: str
     codename: str
     mission_objective: str
-    coding_conventions: Dict[str, str]
-    specifications: List[Dict]
-    architecture_rules: Dict[str, List[str]]
-    constraints: Dict[str, str]
+    coding_conventions: dict[str, str]
+    specifications: list[dict]
+    architecture_rules: dict[str, list[str]]
+    constraints: dict[str, str]
 
 
 class ForgeKenobiAssistant:
@@ -63,7 +63,7 @@ class ForgeKenobiAssistant:
                 "Impossible de procéder sans les spécifications de référence."
             )
 
-        with open(kenobi_file, "r", encoding="utf-8") as f:
+        with open(kenobi_file, encoding="utf-8") as f:
             content = f.read()
 
         # Extraction des sections clés
@@ -85,7 +85,7 @@ class ForgeKenobiAssistant:
             constraints=constraints,
         )
 
-    def _extract_framework_tag(self, content: str) -> Dict[str, str]:
+    def _extract_framework_tag(self, content: str) -> dict[str, str]:
         """Extrait les informations du framework tag"""
         match = re.search(
             r"<!-- FRAMEWORK_TAG START -->(.*?)<!-- FRAMEWORK_TAG END -->",
@@ -114,7 +114,7 @@ class ForgeKenobiAssistant:
                 return obj_match.group(1).strip()
         return "ETL Python centralisé pour métriques DevSecOps"
 
-    def _extract_coding_conventions(self, content: str) -> Dict[str, str]:
+    def _extract_coding_conventions(self, content: str) -> dict[str, str]:
         """Extrait les conventions de codage"""
         match = re.search(
             r"<coding_conventions>(.*?)</coding_conventions>", content, re.DOTALL
@@ -136,7 +136,7 @@ class ForgeKenobiAssistant:
             )
         return conventions
 
-    def _extract_specifications(self, content: str) -> List[Dict]:
+    def _extract_specifications(self, content: str) -> list[dict]:
         """Extrait les spécifications actives"""
         spec_match = re.search(
             r"<specification>(.*?)</specification>", content, re.DOTALL
@@ -160,7 +160,7 @@ class ForgeKenobiAssistant:
 
         return specifications
 
-    def _extract_architecture(self, content: str) -> Dict[str, List[str]]:
+    def _extract_architecture(self, content: str) -> dict[str, list[str]]:
         """Extrait les règles d'architecture"""
         arch_match = re.search(
             r"<architecture_and_infra>(.*?)</architecture_and_infra>",
@@ -189,7 +189,7 @@ class ForgeKenobiAssistant:
 
         return architecture
 
-    def _extract_constraints(self, content: str) -> Dict[str, str]:
+    def _extract_constraints(self, content: str) -> dict[str, str]:
         """Extrait les contraintes techniques"""
         constraints_match = re.search(
             r"<constraints>(.*?)</constraints>", content, re.DOTALL
@@ -211,8 +211,8 @@ class ForgeKenobiAssistant:
         return constraints
 
     def before_action_check(
-        self, action_type: ActionType, details: Dict[str, Any]
-    ) -> Tuple[bool, str]:
+        self, action_type: ActionType, details: dict[str, Any]
+    ) -> tuple[bool, str]:
         """
         VÉRIFICATION OBLIGATOIRE avant toute action
 
@@ -268,8 +268,8 @@ class ForgeKenobiAssistant:
         )
 
     def execute_with_compliance(
-        self, action_type: ActionType, action_details: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, action_type: ActionType, action_details: dict[str, Any]
+    ) -> dict[str, Any]:
         """
         Exécute une action SEULEMENT après vérification de conformité
 
@@ -326,7 +326,7 @@ class ForgeKenobiAssistant:
                 "retry_action": "Correction et nouvelle passe",
             }
 
-    def _execute_action(self, action_type: ActionType, details: Dict[str, Any]) -> Any:
+    def _execute_action(self, action_type: ActionType, details: dict[str, Any]) -> Any:
         """Exécution effective de l'action (à implémenter selon le contexte)"""
         # Cette méthode sera implémentée selon l'environnement d'exécution
         # (VS Code, CLI, etc.)

@@ -4,15 +4,10 @@ Wrapper qui permet à l'IA d'utiliser systématiquement l'assistant Forge-Kenobi
 """
 
 import json
-import os
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
-from forge_kenobi_assistant import (
-    ActionType,
-    ForgeKenobiAssistant,
-    get_forge_kenobi_assistant,
-)
+from forge_kenobi_assistant import ActionType, get_forge_kenobi_assistant
 
 
 class KenobiIntegration:
@@ -23,7 +18,7 @@ class KenobiIntegration:
     pour toutes les actions de développement.
     """
 
-    def __init__(self, project_root: Optional[str] = None):
+    def __init__(self, project_root: str | None = None):
         """Initialise l'intégration Kenobi"""
         if project_root is None:
             # Détection automatique de la racine du projet
@@ -43,8 +38,8 @@ class KenobiIntegration:
         self.session_actions = []
 
     def check_compliance_before_action(
-        self, action_type: str, details: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, action_type: str, details: dict[str, Any]
+    ) -> dict[str, Any]:
         """
         Vérification de conformité avant toute action
 
@@ -84,8 +79,8 @@ class KenobiIntegration:
         return result
 
     def execute_with_kenobi(
-        self, action_type: str, details: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, action_type: str, details: dict[str, Any]
+    ) -> dict[str, Any]:
         """
         Exécute une action avec validation Kenobi complète
 
@@ -120,7 +115,7 @@ class KenobiIntegration:
 
         return result
 
-    def get_kenobi_guidance(self, task_description: str) -> Dict[str, Any]:
+    def get_kenobi_guidance(self, task_description: str) -> dict[str, Any]:
         """
         Obtient des conseils Kenobi pour une tâche spécifique
 
@@ -179,7 +174,7 @@ class KenobiIntegration:
 
         return guidance
 
-    def get_session_summary(self) -> Dict[str, Any]:
+    def get_session_summary(self) -> dict[str, Any]:
         """
         Résumé de la session avec Kenobi
 
@@ -208,8 +203,8 @@ class KenobiIntegration:
         }
 
     def _get_compliance_recommendations(
-        self, action_type: ActionType, details: Dict[str, Any], error_message: str
-    ) -> List[str]:
+        self, action_type: ActionType, details: dict[str, Any], error_message: str
+    ) -> list[str]:
         """Génère des recommandations pour corriger les problèmes de conformité"""
         recommendations = []
 
@@ -257,7 +252,7 @@ def get_kenobi_integration() -> KenobiIntegration:
     return _kenobi_integration
 
 
-def kenobi_check(action_type: str, **details) -> Dict[str, Any]:
+def kenobi_check(action_type: str, **details) -> dict[str, Any]:
     """
     Fonction utilitaire pour vérification rapide Kenobi
 
@@ -279,7 +274,7 @@ def kenobi_check(action_type: str, **details) -> Dict[str, Any]:
     return integration.check_compliance_before_action(action_type, details)
 
 
-def kenobi_execute(action_type: str, **details) -> Dict[str, Any]:
+def kenobi_execute(action_type: str, **details) -> dict[str, Any]:
     """
     Fonction utilitaire pour exécution avec Kenobi
 
@@ -299,7 +294,7 @@ def kenobi_execute(action_type: str, **details) -> Dict[str, Any]:
     return integration.execute_with_kenobi(action_type, details)
 
 
-def kenobi_guidance(task: str) -> Dict[str, Any]:
+def kenobi_guidance(task: str) -> dict[str, Any]:
     """
     Fonction utilitaire pour obtenir des conseils Kenobi
 

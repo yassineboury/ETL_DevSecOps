@@ -6,7 +6,7 @@ Module pour extraire les données depuis GitLab ONCF avec authentification sécu
 import logging
 import os
 import time
-from typing import Any, Dict, Optional
+from typing import Any
 from urllib.parse import urljoin
 
 import requests
@@ -29,8 +29,8 @@ class GitLabExtractor:
 
     def __init__(
         self,
-        gitlab_url: Optional[str] = None,
-        gitlab_token: Optional[str] = None,
+        gitlab_url: str | None = None,
+        gitlab_token: str | None = None,
         timeout: int = 5,
     ) -> None:
         """
@@ -69,8 +69,8 @@ class GitLabExtractor:
 
 
 def check_gitlab_oncf_connection(
-    gitlab_url: Optional[str] = None, gitlab_token: Optional[str] = None
-) -> Dict[str, Any]:
+    gitlab_url: str | None = None, gitlab_token: str | None = None
+) -> dict[str, Any]:
     """
     Teste la connexion à GitLab ONCF selon US-001.
 
@@ -162,7 +162,7 @@ def check_gitlab_oncf_connection(
         logger.error(
             "Timeout connexion GitLab ONCF", extra={"timeout_sec": elapsed_time}
         )
-        raise GitLabConnectionError(error_msg)
+        raise GitLabConnectionError(error_msg) from None
 
     except requests.exceptions.ConnectionError as e:
         elapsed_time = time.time() - start_time
@@ -171,7 +171,7 @@ def check_gitlab_oncf_connection(
             "Erreur réseau GitLab ONCF",
             extra={"error": str(e), "elapsed_sec": round(elapsed_time, 3)},
         )
-        raise GitLabConnectionError(error_msg)
+        raise GitLabConnectionError(error_msg) from e
 
     except Exception as e:
         elapsed_time = time.time() - start_time
@@ -180,4 +180,4 @@ def check_gitlab_oncf_connection(
             "Erreur inattendue GitLab ONCF",
             extra={"error": str(e), "elapsed_sec": round(elapsed_time, 3)},
         )
-        raise GitLabConnectionError(error_msg)
+        raise GitLabConnectionError(error_msg) from e
