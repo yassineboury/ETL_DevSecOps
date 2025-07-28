@@ -1,0 +1,63 @@
+# Configuration ETL DevSecOps ONCF
+# Fichier d'exemple - Copier vers settings.toml et adapter selon l'environnement
+
+[etl]
+# Configuration générale ETL
+name = "ETL DevSecOps ONCF"
+version = "1.0.0"
+environment = "development"  # development, testing, production
+
+[gitlab]
+# Configuration GitLab ONCF selon US-001
+url = "https://gitlab.oncf.net"
+# token = "gitlab_pat_XXXXXXXXXXXXXXXX"  # À définir via GITLAB_TOKEN
+timeout_seconds = 5
+api_version = "v4"
+retry_attempts = 3
+retry_backoff_factor = 1.0
+
+[logging]
+# Configuration des logs selon standards Kenobi
+level = "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+structured = true
+mask_secrets = true
+
+[database]
+# Configuration base de données (exemple pour futures US)
+# driver = "postgresql"
+# host = "localhost"
+# port = 5432
+# database = "etl_oncf"
+# schema = "public"
+
+[monitoring]
+# Métriques et observabilité
+enable_metrics = true
+health_check_interval = 30
+performance_tracking = true
+
+[security]
+# Sécurité selon standards DevSecOps ONCF
+encrypt_sensitive_data = true
+audit_logging = true
+token_rotation_days = 90
+
+[pipeline]
+# Configuration pipeline ETL
+batch_size = 1000
+parallel_workers = 4
+failure_retry_count = 3
+checkpoint_interval = 100
+
+# Exemple d'environnements spécifiques
+[environments.development]
+gitlab.timeout_seconds = 10
+logging.level = "DEBUG"
+pipeline.batch_size = 100
+
+[environments.production]
+gitlab.timeout_seconds = 5
+logging.level = "INFO"
+pipeline.batch_size = 5000
+monitoring.enable_metrics = true
